@@ -4,6 +4,7 @@ using namespace std;
 
 // 1-indexed
 // update point, sub-rectangle query
+// https://www.acmicpc.net/problem/11658 (too slow)
 template<typename T, typename F>
 struct SegmentTree2D
 {
