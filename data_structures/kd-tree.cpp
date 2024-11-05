@@ -1,16 +1,12 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define all(x) x.begin(), x.end()
-
-
-
 template<typename T>
 struct KDTree {
 private:
 	constexpr static size_t NAIVE_THRESHOLD = 16;
 	constexpr static T MAX_VALUE = numeric_limits<T>::max();
 	using P = pair<T, T>; vector<P> tree;
-
 	template<bool IsFirst = 1>
 	struct Cmp {
 		bool operator() (const P& a, const P& b) const {
@@ -18,17 +14,14 @@ private:
 			else return a.second < b.second;
 		}
 	};
-
 	T GetDist(const P& a, const P& b) const {
 		return (a.first - b.first) * (a.first - b.first)
 			+ (a.second - b.second) * (a.second - b.second);
 	}
-
 public:
 	KDTree() = default;
 	explicit KDTree(int n) : tree(n) {}
 	explicit KDTree(const vector<P>& v) : tree(v) { Construct(0, v.size()); }
-
 	template<bool IsFirst = 1>
 	void Construct(int l, int r) {
 		if (r - l <= NAIVE_THRESHOLD) return;
@@ -36,7 +29,6 @@ public:
 		nth_element(tree.begin() + l, tree.begin() + m, tree.begin() + r, Cmp<IsFirst>{});
 		Construct<!IsFirst>(l, m), Construct<!IsFirst>(m + 1, r);
 	}
-
 	template<bool IsFirst = 1>
 	void Query(const P& p, int l, int r, T& res) {
 		if (r - l <= NAIVE_THRESHOLD) {
@@ -59,17 +51,14 @@ public:
 			}
 		}
 	}
-
 	T Query(const P& p) {
 		T ret = MAX_VALUE;
 		Query(p, 0, tree.size(), ret);
 		return ret;
 	}
 };
-
 // https://www.acmicpc.net/problem/7890
 // used in 2D plane
-
 int main()
 {
 	ios_base::sync_with_stdio(false);
