@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define all(x) x.begin(), x.end()
+// all points must have distinct coordinate
 template<typename T>
 struct KDTree {
 private:
