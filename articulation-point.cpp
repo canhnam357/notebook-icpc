@@ -2,6 +2,7 @@
 using namespace std;
 
 // https://www.acmicpc.net/problem/11266
+// https://oj.vnoi.info/problem/graph_
 // 0-indexed
 struct ArticulationPoint {
 	int n, dfs_cnt;
