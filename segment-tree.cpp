@@ -3,7 +3,7 @@ using namespace std;
 #define all(x) x.begin(), x.end()
 
 // https://cses.fi/problemset/task/1649/
-
+// 1-indexed
 template<typename T, typename F>
 struct SegTree {
 	const size_t sz; const T ID; F f{};

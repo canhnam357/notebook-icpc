@@ -32,6 +32,7 @@ using namespace std;
 
 /* =============================================================================================== */
 // https://cses.fi/problemset/task/1647/
+// 1-indexed
 template<typename T, typename F>
 struct Fenwick {
     const int n; const T ID; F f;
