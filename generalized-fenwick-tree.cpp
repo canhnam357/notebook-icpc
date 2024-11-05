@@ -62,17 +62,14 @@ struct Fenwick {
         return f(f(L, v[i]), R);
     }
 };
-int f(int a, int b)
-{
-	return a < b ? a : b;
-}
 int main()
 {
 	ios_base::sync_with_stdio(false);
 	cin.tie(0);
+	auto f = [&](int a, int b) -> int { return a < b ? a : b; };
 	int n, q;
 	cin >> n >> q;
-	Fenwick<int, function<int(int, int)>> tree(n, INT_MAX, f);
+	Fenwick<int, decltype(f)> tree(n, numeric_limits<int>::max(), f);
 	for (int i = 1; i <= n; i++)
 	{
 		int x;

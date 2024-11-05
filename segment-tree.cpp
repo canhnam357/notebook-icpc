@@ -41,7 +41,7 @@ int main()
 	cin.tie(0);
 	int n, q;
 	cin >> n >> q;
-	SegTree<int, function<int(int, int)>> tree(n + 5, INT_MAX, f);
+	SegTree<int, function<int(int, int)>> tree(n, INT_MAX, f);
 	for (int i = 1; i <= n; i++)
 	{
 		int x;
