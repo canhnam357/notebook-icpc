@@ -10,13 +10,14 @@ struct PST
     vector<int> id_root;
     int n, N, sz; // sz is power_of_2
     PST() : n(0), N(0), sz(0) {}
-    PST(int n) : n(n)
+    PST(int n) : n(n) // max of n.o queries update and n.o values
     {
         N = 0;
-        sz = 1;
+        sz = 1; 
         while (sz / 2 < n + 5) sz *= 2;
+        sz // equal n.o values doubled
         tree.resize(sz);
-        id_root.resize(n + 5);
+        id_root.resize(n + 5); // equal n.o queries update
         id_root[0] = 1;
         build();
     }
