@@ -3,6 +3,10 @@
     "files.associations": {
         "*.ejs": "html",
         "chrono": "cpp",
-        "utility": "cpp"
+        "utility": "cpp",
+        "algorithm": "cpp",
+        "limits": "cpp",
+        "random": "cpp",
+        "valarray": "cpp"
     }
 }

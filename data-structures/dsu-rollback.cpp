@@ -13,7 +13,6 @@ struct DSUrb {
         if (x == par[x]) return x;
         return get(par[x]);
     }
-
     bool join(int u, int v) {
         u = get(u);
         v = get(v);
@@ -26,7 +25,6 @@ struct DSUrb {
         sz[u] += sz[v];
         return true;
     }
-
     void rollback(int cnt) {
         while (cnt--) {
             auto a = s.top();
@@ -36,7 +34,6 @@ struct DSUrb {
             sz[a[1]] = a[2];
         }
     }
-
     int same(int a, int b)
     {
         return get(a) == get(b);

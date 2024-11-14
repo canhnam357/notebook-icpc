@@ -1,6 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
-
 // https://www.acmicpc.net/problem/11266
 // https://oj.vnoi.info/problem/graph_
 // 0-indexed
@@ -38,25 +35,3 @@ struct ArticulationPoint {
 			if (!dfs_order[i]) DFS(i, 1);
 	}
 };
-
-int main()
-{
-	ios_base::sync_with_stdio(false);
-	cin.tie(0);
-	int n, m;
-	cin >> n >> m;
-	ArticulationPoint ap(n);
-	for (int i = 0; i < m; i++)
-	{
-		int u, v;
-		cin >> u >> v;
-		ap.AddEdge(--u, --v);
-	}
-	ap.GetCheck();
-	cout << accumulate(ap.check.begin(), ap.check.end(), 0) << '\n';
-	for (int i = 0; i < n; i++)
-	{
-		if (ap.check[i]) cout << i + 1 << ' ';
-	}
-	return 0;
-}
