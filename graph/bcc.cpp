@@ -1,70 +1,75 @@
-	// every two vertex same bcc, have two disjoint path between them
-	int n, m;
-	cin >> n >> m;
-	vector<vector<int>> g(n), adj(n), radj(n), e(n);
-	vector<int> edge_used(m);
-	vector<tuple<int, int, int>> ed;
-	for (int i = 0; i < m; i++)
-	{
-		int u, v, w; 
-		cin >> u >> v >> w;
-		u--, v--;
-		g[u].push_back(v);
-		e[u].push_back(i);
-		g[v].push_back(u);
-		e[v].push_back(i);
-		ed.emplace_back(u, v, w);
-	}
-	vector<int> vis(n);
-	function<void(int, int)> dfs1 = [&](int u, int p)
-	{
-		vis[u] = 1;
-		for (int i = 0; i < g[u].size(); i++)
-		{
-			int v = g[u][i];
-			if (v == p) continue;
-			if (!edge_used[e[u][i]])
-			{
-				adj[u].push_back(v);
-				radj[v].push_back(u);
-				edge_used[e[u][i]] = 1;
+/** @return the block-cut tree of a graph */
+// every two vertex same bcc, have two disjoint path between them
+vector<vector<int>> biconnected_components(vector<vector<int>> &g, vector<bool> &is_cutpoint, vector<int> &id) {
+	int n = (int)g.size();
+	vector<vector<int>> comps;
+	vector<int> stk;
+	vector<int> num(n);
+	vector<int> low(n);
+	is_cutpoint.resize(n);
+	// Finds the biconnected components
+	function<void(int, int, int &)> dfs = [&](int node, int parent, int &timer) {
+		num[node] = low[node] = ++timer;
+		stk.push_back(node);
+		for (int son : g[node]) {
+			if (son == parent) { continue; }
+			if (num[son]) {
+				low[node] = min(low[node], num[son]);
+			} else {
+				dfs(son, node, timer);
+				low[node] = min(low[node], low[son]);
+				if (low[son] >= num[node]) {
+					is_cutpoint[node] = (num[node] > 1 || num[son] > 2);
+					comps.push_back({node});
+					while (comps.back().back() != son) {
+						comps.back().push_back(stk.back());
+						stk.pop_back();
+					}
+				}
 			}
-			if (!vis[v]) dfs1(v, u);
 		}
 	};
-	dfs1(0, -1);
-	fill(all(vis), 0);
-	vector<int> topo;
-	function<void(int)> dfs2 = [&](int u)
-	{
-		vis[u] = 1;
-		for (int v : adj[u])
-		{
-			if (!vis[v]) dfs2(v);
+
+	int timer = 0;
+	dfs(0, -1, timer);
+	id.resize(n);
+
+	// Build the block-cut tree
+	function<vector<vector<int>>()> build_tree = [&]() {
+		vector<vector<int>> t(1);
+		int node_id = 0;
+		for (int node = 0; node < n; node++) {
+			if (is_cutpoint[node]) {
+				id[node] = node_id++;
+				t.push_back({});
+			}
 		}
-		topo.push_back(u);
+
+		for (auto &comp : comps) {
+			int node = node_id++;
+			t.push_back({});
+			for (int u : comp)
+				if (!is_cutpoint[u]) {
+					id[u] = node;
+				} else {
+					t[node].push_back(id[u]);
+					t[id[u]].push_back(node);
+				}
+		}
+		return t;
 	};
-	for (int i = 0; i < n; i++) if (!vis[i]) dfs2(i);
-	reverse(all(topo));
-	vector<int> cc(n);
-	int c = 0;
-	fill(all(vis), 0);
-	function<void(int)> dfs3 = [&](int u)
+
+	return build_tree();
+}
+vector<vector<int>> g(n);
+vector<int> id, is_cutpoint;
+auto adj = biconnected_components(g, is_cutpoint, id);
+function<void(int, int)> dfs = [&](int u, int p)
+{
+	for (int v : adj[u])
 	{
-		vis[u] = 1;
-		cc[u] = c;
-		//cout << u + 1 << ' ';
-		for (int v : radj[u])
-		{
-			if (!vis[v]) dfs3(v);
-		}
-	};
-	for (int i : topo)
-	{
-		if (!vis[i])
-		{
-			dfs3(i);
-			//cout << '\n';
-			c++;
-		}
+		if (v == p) continue;
+		lca.add_edge(u, v);
+		dfs(v, u);
 	}
+};

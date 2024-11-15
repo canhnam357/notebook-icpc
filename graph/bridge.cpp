@@ -1,6 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
-
 // https://www.acmicpc.net/problem/11400
 // https://oj.vnoi.info/problem/graph_
 // 0-indexed

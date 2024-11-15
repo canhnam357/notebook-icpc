@@ -1,7 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
-#define all(x) x.begin(), x.end()
- 
 // https://cses.fi/problemset/task/1649/
 // 1-indexed
 template<typename T, typename F>
