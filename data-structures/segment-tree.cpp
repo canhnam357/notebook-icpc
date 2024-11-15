@@ -31,26 +31,5 @@ struct SegTree {
 		return f(L, R);
 	}
 };
-int main()
-{
-	ios_base::sync_with_stdio(false);
-	cin.tie(0);
-	auto f = [&](int a, int b) -> int { return a < b ? a : b; };
-	int n, q;
-	cin >> n >> q;
-	SegTree<int, decltype(f)> tree(n, numeric_limits<int>::max(), f);
-	for (int i = 1; i <= n; i++)
-	{
-		int x;
-		cin >> x;
-		tree.Update(i, x);
-	}
-	while (q--)
-	{
-		int t, l, r;
-		cin >> t >> l >> r;
-		if (t == 1) tree.Update(l, r);
-		else cout << tree.Query(l, r) << '\n';
-	}
-	return 0;
-}
+auto f = [&](int a, int b) -> int { return a < b ? a : b; };
+SegTree<int, decltype(f)> tree(n, numeric_limits<int>::max(), f);

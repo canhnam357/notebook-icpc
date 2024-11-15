@@ -117,28 +117,3 @@ vector<pair<long long, int>> factorize(long long n)
     sort(res.begin(), res.end());
     return res;
 }
-int main()
-{
-    int q;
-    cin >> q;
-    while (q--)
-    {
-        long long n;
-        cin >> n;
-        if (n == 1)
-        {
-            cout << 0 << '\n';
-            continue;
-        }
-        auto f = factorize(n);
-        int cnt = 0;
-        for (auto [p, o] : f) cnt += o;
-        cout << cnt << ' ';
-        for (auto [p, o] : f)
-        {
-            for (int i = 0; i < o; i++) cout << p << ' ';
-        }
-        cout << '\n';
-    }
-    return 0;
-}

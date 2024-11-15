@@ -58,31 +58,16 @@ struct aho_corasick{
 signed main(){
     cin.tie(0)->sync_with_stdio(0);
     aho_corasick ac;
-    int n;
-    string z;
-    cin >> n >> z;
-    int m;
-    cin >> m;
-    vector<int> len;
-    for (int i = 0; i < m; i++)
-    {
-        string s;
-        cin >> s;
-        ac.insert_string(s, s.size());
-    }
+    ac.insert_string(s, s.size());
     ac.build_automaton();
     ac.cc();
-    vector<int> dp(n, 123123123);
     for (int r = 0, p = 0; r < n; r++)
     {
         p = ac.g[p].nxt[z[r] - 'a'];
         for (int j: ac.get_sindex(p))
         {
-            int l = r - j + 1;
-            if (l == 0) dp[r] = min(dp[r], 1);
-            else dp[r] = min(dp[r], dp[l - 1] + 1);
+            // j may be is index, length or something of second element when insert_string
         }
     }
-    cout << dp[n - 1];
     return 0;
 }

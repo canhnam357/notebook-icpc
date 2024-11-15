@@ -61,28 +61,3 @@ struct hashing2D
 };
 const int mod1 = 1035972859;
 const int mod2 = 1704760909;
-int32_t main()
-{
-	ios_base::sync_with_stdio(false);
-	cin.tie(0);
-	int n, m, a, b;
-	cin >> n >> m >> a >> b;
-	vector<string> v1(n);
-	for (string &s : v1) cin >> s;
-	int h1 = hashing2D<mod1>(v1).get_hash();
-	int h2 = hashing2D<mod2>(v1).get_hash();
-	vector<string> v2(a);
-	for (string &s : v2) cin >> s;
-	hashing2D<mod1> H1(v2);
-	hashing2D<mod2> H2(v2);
-	int ans = 0;
-	for (int i = 1; i + n - 1 <= a; i++)
-	{
-		for (int j = 1; j + m - 1 <= b; j++)
-		{
-			if (H1.get_hash(i, j, i + n - 1, j + m - 1) * H2.get_hash(i, j, i + n - 1, j + m - 1) == h1 * h2) ans++;
-		}
-	}
-	cout << ans;
-	return 0;
-}
