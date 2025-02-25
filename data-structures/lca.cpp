@@ -50,7 +50,7 @@ struct LCA { // 0-based
     a = enter[a], b = enter[b];
     return rmq.query(min(a, b), max(a, b) + 1).second;
   }
-  int dist(int a, int b) {
+  int dis(int a, int b) {
     return depth[a] + depth[b] - 2 * depth[query(a, b)];
   }
 };
