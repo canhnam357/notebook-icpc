@@ -71,7 +71,41 @@ public:
         }
         swap(d, pot);
     }
+    /*
+    void expath(int st)
+    {
+        fill(d.begin(), d.end(), INF_C);
+        d[st] = 0;
+        queue<int> q;
+        q.push(st);
+        vector<bool> in_queue(n, false);
+        in_queue[st] = true;
 
+        while (!q.empty())
+        {
+            int i = q.front();
+            q.pop();
+            in_queue[i] = false;
+
+            for (int id : g[i])
+            {
+                const edge& e = edges[id];
+                int j = e.to;
+                if (e.c - e.f > eps && d[i] + e.cost < d[j])
+                {
+                    d[j] = d[i] + e.cost;
+                    pe[j] = id;
+                    if (!in_queue[j])
+                    {
+                        q.push(j);
+                        in_queue[j] = true;
+                    }
+                }
+            }
+        }
+        swap(d, pot);
+    }
+    */
     pair<T, C> max_flow_min_cost(int st, int fin)
     {
         T flow = 0;
