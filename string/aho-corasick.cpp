@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define all(x) x.begin(), x.end()
+// suffix_link : nhảy tới nút có độ dài nhỏ hơn mà lớn nhất và là suffix của chuỗi hiện tại (vì là trie nên chuỗi hiện tại là 1 prefix của một chuỗi đã thêm vào)
+// exit_link : là nút gần nhất sau khi nhảy (> 0) lần và nút đó là kết thúc của 1 trong những chuỗi đã thêm vào
 struct aho_corasick{
     struct node{
         int suffix_link = -1, exit_link = -1, nxt[26];
