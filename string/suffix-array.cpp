@@ -67,7 +67,8 @@ vector<int> suffix_array(int n, const T& s, int char_bound) {
     }
     return a;
 }
-// element in s have value in range [0, char_bound)
+// element in s has value in range [0, char_bound)
+// if char_bound = -1 -> element in s have value in range (-inf, inf)
 template <typename T>
 vector<int> suffix_array(const T& s, int char_bound) {
     return suffix_array((int)s.size(), s, char_bound);
