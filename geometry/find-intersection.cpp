@@ -90,36 +90,3 @@ vector<Point> intersect_circle_circle(Circle c1, Circle c2) {
     }
     return ans;
 }
-
-// Ket qua la
-// 0.666667 0.333333
-// -1
-// -1
-// 2 0 | 0 2 | 
-// 0.211146 2.89443 | 3.78885 1.10557 |
-void test_find_intersection() {
-    Line a = {1, 1, 1};
-    Line b = {-1, 2, 0};
-    Line c = {1, 1, 2};
-    Circle d {2, 2, 2};
-    Circle e {3, 4, 3};
-    Point ans;
-    if(intersect(a, b, ans))
-        cout << ans.x << " " << ans.y << "\n";
-    else
-        cout << "-1\n";
-    if(intersect(a, c, ans))
-        cout << ans.x << " " << ans.y << "\n";
-    else
-        cout << "-1\n";
-    if(intersect(a, a, ans))
-        cout << ans.x << " " << ans.y << "\n";
-    else
-        cout << "-1\n";
-    for(Point p : intersect_line_circle(c, d))
-        cout << p.x << " " << p.y << " | ";
-    cout << "\n";
-    for(Point p : intersect_circle_circle(d, e))
-        cout << p.x << " " << p.y << " | ";
-    cout << "\n";
-}
