@@ -1,50 +1,44 @@
-const int mod1 = 1035972859;
-const int mod2 = 1704760909;
-const int mod3 = 2137321811;
-const int mod4 = 2002577573;
-const int mod5 = 2143922441;
+#define ll long long
+const ll mod1 = 1035972859;
+const ll mod2 = 1704760909;
 const int base = 256;
-template<typename Container>
-struct hashing
-{
-	int mod;
-	vector<int> h, p, inv;
-	hashing() {}
-	hashing(int mod, const Container& s)
-	{
-		int n = s.size();
-		this->mod = mod;
-		h.resize(n);
-		p.resize(n);
-		inv.resize(n);
-		h[0] = s[0];
-		p[0] = 1;
-		for (int i = 1; i < n; i++)
-		{
-			p[i] = (p[i - 1] * base) % mod;
-			h[i] = (h[i - 1] + s[i] * p[i]) % mod;
-		}
-		inv[n - 1] = power(p[n - 1], mod - 2);
-		for (int i = n - 2; i >= 0; i--) inv[i] = (inv[i + 1] * base) % mod;
-	}
-	int power(int a, int b)
-	{
-		int ans = 1;
-		while (b)
-		{
-			if (b & 1) ans = (ans * a) % mod;
-			(a *= a) %= mod;
-			b >>= 1;
-		}
-		return ans;
-	}
-	int get(int l, int r)
-	{
-		if (l > r) return 0;
-		return l ? ((h[r] - h[l - 1] + mod) * inv[l]) % mod : h[r];
-	}
-	bool same(int l1, int r1, int l2, int r2)
-	{
-		return get(l1, r1) == get(l2, r2);
-	}
+struct hashing{
+    ll mod;
+    int n;
+    vector<ll> h, power;
+    ll binpow(int a, int n){
+        if (n == 0)
+            return 1LL;
+        ll res = binpow(a, n/2);
+        if (n % 2)
+            return res * res % mod * a % mod;
+        return res * res % mod;
+    }
+    hashing() {}
+    hashing(string s, int mod): mod(mod){
+        this->n = s.length();
+        power = h = vector<ll> (n);
+        power[0] = 1;
+        h[0] = s[0];
+        for (int i = 1; i < n; i++){
+            power[i] = power[i - 1] * base % mod;
+            h[i] = (h[i - 1] * base + s[i]) % mod;
+        }
+    }
+
+    ll get(int l, int r){
+        return (!l ? h[r] : (h[r] - h[l - 1] * power[r - l + 1] + mod * mod) % mod);
+    }
+};
+
+struct bighash{
+    bighash() {}
+    hashing a, b;
+    bighash(string s){
+        a = hashing(s, mod1);
+        b = hashing(s, mod2);
+    }
+    ll get(int l, int r){
+        return a.get(l, r) * b.get(l, r);
+    }
 };
