@@ -1,8 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
-#define all(x) x.begin(), x.end()
- 
-// https://cses.fi/problemset/task/1649/
 // 1-indexed
 template<typename T, typename F>
 struct segtree {
@@ -31,26 +26,5 @@ struct segtree {
         return f(L, R);
     }
 };
-int main()
-{
-	ios_base::sync_with_stdio(false);
-	cin.tie(0);
-	auto f = [&](int a, int b) -> int { return a < b ? a : b; };
-	int n, q;
-	cin >> n >> q;
-	segtree<int, decltype(f)> tree(n, numeric_limits<int>::max(), f);
-	for (int i = 1; i <= n; i++)
-	{
-		int x;
-		cin >> x;
-		tree.update(i, x);
-	}
-	while (q--)
-	{
-		int t, l, r;
-		cin >> t >> l >> r;
-		if (t == 1) tree.update(l, r);
-		else cout << tree.query(l, r) << '\n';
-	}
-	return 0;
-}
+auto f = [&](int a, int b) -> int { return a < b ? a : b; };
+segtree<int, decltype(f)> tree(n, numeric_limits<int>::max(), f);
