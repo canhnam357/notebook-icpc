@@ -1,20 +1,3 @@
-// source problem : 
-#include <bits/stdc++.h>
-using namespace std;
-#define all(x) x.begin(), x.end()
-#define int long long
-#define lb lower_bound
-#define ub upper_bound
-#define MASK(i) (1LL << (i))
-const int inf = 1e18;
-void ckmax(int& f, int s)
-{
-    f = (f > s ? f : s);
-}
-void ckmin(int& f, int s)
-{
-    f = (f < s ? f : s);
-}
 istream &operator>>(istream &is, __int128 &v) {
     string s;
     is>>s;
@@ -33,8 +16,7 @@ ostream &operator<<(ostream &os,const __int128 &v) {
     reverse(all(s));
     return (os<<s);
 }
-int32_t main()
-{
+int32_t main() {
     ios_base::sync_with_stdio(false);
     cin.tie(0);
     __int128 x = 999999999;
