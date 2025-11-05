@@ -8,23 +8,8 @@ struct fenwick {
 		this->n = n + 5;
 		bit.resize(n + 5);
 	}
-	void add(int pos, int val) {
-		while (pos < n) {
-			bit[pos] += val;
-			pos += pos & -pos;
-		}
-	}
-	int get(int pos) {
-		int ans = 0;
-		while (pos) {
-			ans += bit[pos];
-			pos -= pos & -pos;
-		}
-		return ans;
-	}
-	int get(int l, int r) {
-		return get(r) - get(l - 1);
-	}
+	// add x : pos -> n : x += x & -x
+	// get x : pos -> 0 : x -= x & -x
 	int find(int k) {
 		int sum = 0, pos = 0;
 		for (int i = __lg(n); i >= 0; i--) {
