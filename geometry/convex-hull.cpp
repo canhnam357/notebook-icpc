@@ -61,23 +61,9 @@ int is_convex_hull(vector<int> p) {
     else
         return 0;
 }
-
-// Ket qua la
-// 5
-// 0 0
-// 0 2
-// 1 2
-// 1 2
-// 0 2
-void test_convex_hull() {
-    vector<Point> a = {{0, 0}, {0, 1}, {0, 2}, {1, 2}, {1, 1}, {2, 1}, {2, 0}, {1, 0}};
-    vector<Point> hull;
-    convex_hull(a, hull);
-    cout << hull.size() << "\n";
-    for(Point p : hull) {
-        cout << p.x << " " << p.y << "\n";
-    }
-}
-// Test link:
-// https://judge.yosupo.jp/problem/static_convex_hull
+/*
+vector<Point> a = {{0, 0}, {0, 1}, {0, 2}, {1, 2}, {1, 1}, {2, 1}, {2, 0}, {1, 0}};
+vector<Point> hull;
+convex_hull(a, hull);
+*/
 #undef int
