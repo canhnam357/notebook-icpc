@@ -87,25 +87,20 @@ bool is_prime(uint64_t n)
     }
     return true;
 }
-vector<pair<long long, int>> factorize(long long n)
-{
+vector<pair<long long, int>> factorize(long long n) {
     assert(n > 1);
     vector<pair<long long, int>> res;
-    for (long long i = 2; i * i * i <= n; i++)
-    {
-        if (n % i == 0)
-        {
+    for (long long i = 2; i * i * i <= n; i++) {
+        if (n % i == 0) {
             res.emplace_back(i, 0);
-            while (n % i == 0)
-            {
+            while (n % i == 0) {
                 res.back().second++;
                 n /= i;
             }
         }
     }
     if (n == 1) return res;
-    if (is_prime(n))
-    {
+    if (is_prime(n)) {
         res.emplace_back(n, 1);
         return res;
     }
@@ -116,29 +111,4 @@ vector<pair<long long, int>> factorize(long long n)
     else res.emplace_back(n / k, 1);
     sort(res.begin(), res.end());
     return res;
-}
-int main()
-{
-    int q;
-    cin >> q;
-    while (q--)
-    {
-        long long n;
-        cin >> n;
-        if (n == 1)
-        {
-            cout << 0 << '\n';
-            continue;
-        }
-        auto f = factorize(n);
-        int cnt = 0;
-        for (auto [p, o] : f) cnt += o;
-        cout << cnt << ' ';
-        for (auto [p, o] : f)
-        {
-            for (int i = 0; i < o; i++) cout << p << ' ';
-        }
-        cout << '\n';
-    }
-    return 0;
 }
