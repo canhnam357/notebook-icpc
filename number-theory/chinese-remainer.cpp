@@ -1,4 +1,4 @@
-#include "extended_euclid.h"
+#include "extended-euclid.h"
 #define int long long
 using namespace std;
 
@@ -20,12 +20,5 @@ int chinese_remainder(vector<Congruence> c) {
     }
     return ans;
 }
-
-// input (2, 3), (3, 4), (4, 5) (mod 3 = 2, mod 4 = 3, mod 5 = 4)
-// output 59
-// input (0, 1001), (2, 1003), (5, 1005)
-// output 378508130
-void test_chinese_remainder() {
-    vector<Congruence> a = { {0, 1001}, {2, 1003} , {5, 1005} };
-    cout << chinese_remainder(a) << "\n";
-}
+//vector<Congruence> a = { {0, 1001}, {2, 1003} , {5, 1005} };
+//cout << chinese_remainder(a) << "\n";
