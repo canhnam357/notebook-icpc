@@ -32,31 +32,3 @@ int inverse_extended_euclid(int a, int mod) {
         return -1;
     }
 }
-
-// Kiem tra ham
-void test_extended_euclid() {
-    for(int a = 1; a <= 100; a++) {
-        for(int b = 1; b <= 100; b++) {
-            int x, y;
-            int g = extended_euclid(a, b, x, y);
-            for(int c = -1000; c <= 1000; c++) {
-                if(c % g == 0) {
-                    int x2 = x * (c / g);
-                    int y2 = y * (c / g);
-                    if(a * x2 + b * y2 != c) {
-                        cout << "Fail at " << a << " " << b << " " << c << "\n";
-                        return;
-                    }
-                }
-            }
-        }
-    }
-    int mod = 1e9+7;
-    for(int i = 10; i <= 100; i++) {
-        if(inverse_extended_euclid(i, mod) * i % mod != 1) {
-            cout << "Fail at inverse " << i << "\n";
-            break;
-        }
-    }
-    cout << "OK\n";
-}
