@@ -76,24 +76,4 @@ int ccw(Point a, Point b, Point c) {
 int sqr_len(Point a) {
     return sqr(a.x) + sqr(a.y);
 }
-
-// Ket qua la
-// 1 0 1 -1
-// 2 8 5 1
-// 2 -1
-// 3
-void test_point() {
-    Point a{1, 1};
-    Point b{2, 2};
-    Point c{3, 3};
-    Point d{1, 2};
-    Point e{2, 1};
-    cout << ccw(a, e, b) << " " << ccw(a, b, c) << " ";
-    cout << ccw(a, c, d) << " " << ccw(a, c, e) << "\n";
-    cout << sqr_len(a - b) << " " << sqr_len(a - c) << " ";
-    cout << sqr_len(c - d) << " " << sqr_len(a - e) << "\n";
-    cout << (c - d).x << " " << (c - d).y << "\n";
-    cout << dot(a, d) << "\n";
-}
-
 #undef int
