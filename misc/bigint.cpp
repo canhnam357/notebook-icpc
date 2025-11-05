@@ -181,28 +181,3 @@ ostream& operator << (ostream& os, const BigInt& a) {
         os << setw(BASE_DIGITS) << setfill('0') << right << a.d[i];
     return os;
 }
-
-void test_bigint() {
-    // a = 1e18 - 1
-    // b = 1
-    // c = 123456789123456789
-    // Ket qua
-    // 1000000000000000000
-    // 999999999999999999
-    // 999999999999999998000000000000000001
-    // 499999999999999999
-    // 0 0 0 1 1 1
-    BigInt a = 999999999999999999LL;
-    BigInt b = 1;
-    BigInt c = 123456789123456789LL;
-    cout << (a + b) << "\n";
-    cout << (a + b - b) << "\n";
-    cout << (a * a) << "\n";
-    cout << (a / 2) << "\n";
-    cout << (a < b) << " ";
-    cout << (a > a) << " ";
-    cout << (a <= b) << " ";
-    cout << (a >= a) << " ";
-    cout << (a == a) << " ";
-    cout << (a != b) << "\n";
-}
