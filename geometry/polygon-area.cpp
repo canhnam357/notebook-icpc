@@ -10,12 +10,4 @@ int polygon_area(vector<Point>& p) {
     }
     return abs(s);
 }
-
-// kiem tra code
-void test_polygon_area() {
-    vector<Point> p = {{0, 0}, {0, 2}, {1, 2}, {1, 1}, {2, 1}, {2, 0}};
-    // Ket qua la 6
-    cout << polygon_area(p) << "\n";
-}
-
 #undef int
