@@ -2,7 +2,7 @@ const int maxN = 1e5 + 5;
 struct query{
     int l, r, k, t, id;
 };
-// Lưu lại thông tin cập nhật: Sau khi thực hiện truy vấn này, a[index] = old sẽ trở thành a[index] = next. Lưu lại như vậy nhằm mục đích thuận tiện khi đảo ngược truy vấn.
+// Luu lai thong tin cap nhat: Sau khi thuc hien truy van nay, a[index] = old se tro thanh a[index] = next. Luu lai nhu vay nham muc dich thuan tien khi dao nguoc truy van.
 struct update{
     int index, old, next;
 };
@@ -27,7 +27,7 @@ void add(int x) {
 void rmv(int x) {
 }
 void run_update(int i, int x){
-    // Nếu i nằm trong [l, r], việc cập nhật sẽ ảnh hưởng đến đáp án
+    // Neu i nam trong [l, r], viec cap nhat se anh huong den dap an
     if(l <= i && i <= r){
         rmv(a[i]);
         add(x);
@@ -55,9 +55,9 @@ signed main(){
     }
     sort(queries.begin(), queries.end(), cmp);
     for(query &q : queries){
-        // Truy vấn cập nhật
+        // Truy van cap nhat
         while(t < q.t) t++, run_update(update_queries[t].index, update_queries[t].next);
-        // Đảo ngược truy vấn cập nhật
+        // Dao nguoc truy van cap nhat
         while(t > q.t) run_update(update_queries[t].index, update_queries[t].old), t--;
         while (l > q.l) add(a[--l]);
         while (r < q.r) add(a[++r]);
