@@ -4,7 +4,6 @@ struct Line {
         return a * x + b;
     }
 };
-
 struct Node {
     int l, r; //child id
     int s, e; //range
@@ -18,18 +17,14 @@ struct Li_Chao {
     void init(int s, int e) {
         tree.push_back({ -1, -1, s, e, { 0, inf } });
     }
-
     void update(int node, Line v) {
         int s = tree[node].s, e = tree[node].e;
         int m = (s + e) >> 1;
-
         Line low = tree[node].line, high = v;
         if (low.get(s) < high.get(s)) swap(low, high); // change sign
-
         if (low.get(e) >= high.get(e)) { // change sign
             tree[node].line = high; return;
         }
-
         if (low.get(m) > high.get(m)) { // change sign
             tree[node].line = high;
             if (tree[node].r == -1) {
@@ -47,8 +42,7 @@ struct Li_Chao {
             update(tree[node].l, high);
         }
     }
-    void update(Line v)
-    {
+    void update(Line v){
         update(0, v);
     }
     int query(int node, int x) {
@@ -58,8 +52,7 @@ struct Li_Chao {
         if (x <= m) return min(tree[node].line.get(x), query(tree[node].l, x));
         else return min(tree[node].line.get(x), query(tree[node].r, x));
     }
-    int query(int x)
-    {
+    int query(int x){
         return query(0, x);
     }
 };
