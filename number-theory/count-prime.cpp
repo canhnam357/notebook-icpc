@@ -1,16 +1,12 @@
 struct _count_primes_struct_t_ {
-    vector<int> primes;
-    vector<int> mnprimes;
-    int ans;
-    int y;
+    vector<int> primes, mnprimes;
+    int ans, y;
     vector<pair<pair<int, int>, char>> queries;
- 
     int count_primes(int n) {
         // this y is actually n/y
         // also no logarithms, welcome to reality, this y is the best for n=10^12 or n=10^13
         y = pow(n, 0.64);
         if (n < 100) y = n;
- 
         // linear sieve
         primes.clear();
         mnprimes.assign(y + 1, -1);
@@ -29,14 +25,12 @@ struct _count_primes_struct_t_ {
         }
         if (n < 100) return primes.size();
         int s = n / y;
- 
         for (int p : primes) {
             if (p > s) break;
             ans++;
         }
         // pi(n / y)
         int ssz = ans;
- 
         // F with two pointers
         int ptr = primes.size() - 1;
         for (int i = ssz; i < primes.size(); ++i) {
@@ -45,14 +39,11 @@ struct _count_primes_struct_t_ {
             if (ptr < i) break;
             ans -= ptr - i + 1;
         }
- 
         // phi, store all queries 
         phi(n, ssz - 1);
- 
         sort(queries.begin(), queries.end());
         int ind = 2;
         int sz = primes.size();
- 
         // the order in fenwick will be reversed, because prefix sum in a fenwick is just one query
         fenwick fw(sz);
         for (auto [na, sign] : queries) {
@@ -64,7 +55,6 @@ struct _count_primes_struct_t_ {
         queries.clear();
         return ans - 1;
     }
- 
     void phi(int n, int a, int sign = 1) {
         if (n == 0) return;
         if (a == -1) {
@@ -78,7 +68,6 @@ struct _count_primes_struct_t_ {
         phi(n, a - 1, sign);
         phi(n / primes[a], a - 1, -sign);
     }
- 
     struct fenwick {
         vector<int> tree;
         int n;
@@ -86,12 +75,10 @@ struct _count_primes_struct_t_ {
         fenwick(int n = 0) : n(n) {
             tree.assign(n, 0);
         }
- 
         void add(int i, int k) {
             for (; i < n; i = (i | (i + 1)))
                 tree[i] += k;
         }
- 
         int ask(int r) {
             int res = 0;
             for (; r >= 0; r = (r & (r + 1)) - 1)
