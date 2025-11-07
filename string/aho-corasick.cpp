@@ -3,7 +3,7 @@
 // trong ham get() tim nhung chuoi la suffix cua hien tai theo do dai giam dan
 struct aho_corasick{
     struct node{
-        int suffix_link = -1, exit_link = -1, nxt[26], tot = 0, h = 0;
+        int suffix_link = -1, exit_link = -1, nxt[26], tot = 0;
         bool has = false;
         node() {fill(nxt, nxt + 26, -1);}
     };
@@ -14,7 +14,6 @@ struct aho_corasick{
             if (g[p].nxt[c - 'A'] == -1){
                 g[p].nxt[c - 'A'] = g.size();
                 g.emplace_back();
-                g.back().h = g[p].h + 1;
             }
             p = g[p].nxt[c - 'A'];
         }
@@ -37,10 +36,7 @@ struct aho_corasick{
     }
     int get(int p) {
         int res = 0;
-        int last = g[p].h;
         for (int v = g[p].has ? p : g[p].exit_link; v != -1; v = g[v].exit_link) {
-            assert(g[v].h <= last);
-            last = g[v].h;
             res += g[v].tot;
         }
         return res;
