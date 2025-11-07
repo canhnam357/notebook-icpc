@@ -2,12 +2,9 @@
 #define LG 20 // log
 int L[N * LG], R[N * LG], val[N * LG], root[N];
 long long sum[N * LG];
-int M = 0; // number of roots
-int p = 2; // id mapped
-int n = 200001; // size range tree
+int M = 0, p = 2, n = 200001;
 void update(int id, int l, int r, int x) {
-    val[id]++;
-    sum[id] += x;
+    val[id]++; sum[id] += x;
     if (l != r) {
         int mid = (l + r) >> 1;
         int u = L[id], v = R[id];
@@ -60,8 +57,7 @@ void build(int id, int l, int r) {
     val[id] = sum[id] = 0;
     if (l == r) return;
     int mid = (l + r) >> 1;
-    L[id] = p++;
-    R[id] = p++;
+    L[id] = p++; R[id] = p++;
     build(L[id], l, mid);
     build(R[id], mid + 1, r);
 }
