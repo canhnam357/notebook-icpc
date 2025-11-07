@@ -1,16 +1,11 @@
-#include <bits/stdc++.h>
-using namespace std;
-
 struct matrix {
     vector<vector<int>> a;
     int n, m;
     matrix(int n, int m) {
-        this->n = n;
-        this->m = m;
+        this->n = n; this->m = m;
         a = vector<vector<int>>(n, vector<int>(m));
     }
 };
-
 int _gcd(int a, int b) {
     return b == 0 ? a : _gcd(b, a%b);
 }
@@ -25,12 +20,10 @@ void norm_array(vector<int>& a) {
                 g *= -1;
             break;
         }
-    for(int &i : a)
-        i /= g;
+    for(int &i : a) i /= g;
 }
 void gauss_elimination(matrix& mat) {
-    int n = mat.n;
-    int m = mat.m;
+    int n = mat.n, m = mat.m;
     for(int i = 0; i < n-1; i++) {
         // tim hang co a[i][i] != 0
         for(int j = i; j < n; j++) {
@@ -56,23 +49,5 @@ void gauss_elimination(matrix& mat) {
             for(int k = i-1; k >= 0; k--)
                 mat.a[j][k] *= mat.a[i][i];
         }
-    }
-}
-// 1 0 -1
-// 0 1 2
-void test_gauss() {
-    matrix a(2, 3);
-    a.a[0][0] = 1;
-    a.a[0][1] = 2;
-    a.a[0][2] = 3;
-    a.a[1][0] = 4;
-    a.a[1][1] = 5;
-    a.a[1][2] = 6;
-    gauss_elimination(a);
-    for(int i = 0; i < 2; i++) {
-        for(int j = 0; j < 3; j++) {
-            cout << a.a[i][j] << " ";
-        }
-        cout << "\n";
     }
 }
