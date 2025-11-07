@@ -9,11 +9,10 @@ struct Node {
     int xr = -inf;
     int yl = inf;
     int yr = -inf;
-    int minz = inf; // order by time shoot
+    long long val = 0;
 };
-map<pair<int, int>, queue<int>> shoots;
 void combine(Node* t) {
-    t->minz = min(t->l->minz, t->r->minz);
+    t->val = max(t->l->val, t->r->val);
 }
 // d (dimension) : 0 -> x, 1 -> y
 vector<pair<int, int>> b;
@@ -27,7 +26,6 @@ Node* build(int l, int r, int d = 0) {
         t->yr = max(t->yr, y);
     }
     if (l == r) {
-        t->minz = shoots[b[l]].front();
         return t;
     }
     int n = r - l + 1;
@@ -39,58 +37,40 @@ Node* build(int l, int r, int d = 0) {
     combine(t);
     return t;
 }
-int query(Node* t, int xl, int xr, int yl, int yr) {
-    if (t->xr < xl || t->xl > xr || t->yr < yl || t->yl > yr) return inf;
-    if (t->xl >= xl && t->xr <= xr && t->yl >= yl && t->yr <= yr) return t->minz;
-    return min(query(t->l, xl, xr, yl, yr), query(t->r, xl, xr, yl, yr));
+long long query(Node* t, int xl, int xr, int yl, int yr) {
+    if (!t->val) return 0;
+    if (t->xr < xl || t->xl > xr || t->yr < yl || t->yl > yr || !t->val) return 0;
+    if (t->xl >= xl && t->xr <= xr && t->yl >= yl && t->yr <= yr) return t->val;
+    return max(query(t->l, xl, xr, yl, yr), query(t->r, xl, xr, yl, yr));
 }
-void del(Node* t, int x, int y) {
+void update(Node* t, int x, int y, long long val) {
     if (t->xl > x || t->xr < x || t->yl > y || t->yr < y) return;
     if (x == t->xl && x == t->xr && y == t->yl && y == t->yr) {
-        shoots[{x, y}].pop();
-        t->minz = shoots[{x, y}].empty() ? inf : shoots[{x, y}].front();
+        t->val = max(t->val, val);
         return;
     }
-    del(t->l, x, y);
-    del(t->r, x, y);
+    update(t->l, x, y, val);
+    update(t->r, x, y, val);
     combine(t);
 }
-int main()
-{
+const int N = 2e5;
+int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
-    int n;
-    cin >> n;
-    vector<int> xl(n), xr(n), yl(n), yr(n), z(n);
-    for (int i = 0; i < n; i++) {
-        cin >> xl[i] >> xr[i] >> yl[i] >> yr[i] >> z[i];
-    }
-    vector<int> ord(n);
-    iota(ord.begin(), ord.end(), 0);
-    sort(ord.begin(), ord.end(), [&](int a, int b) {
-        return z[a] < z[b];
-    });
-    int m;
-    cin >> m;
-    for (int i = 0; i < m; i++) {
-        int x, y;
-        cin >> x >> y;
-        b.emplace_back(x, y);
-        shoots[b.back()].push(i);
-    }
-    auto c = b;
+    int n, dx, dy;
+    cin >> n >> dx >> dy;
+    vector<tuple<int, int, int, int>> a(n);
+    for (auto &[h, x, y, p] : a) cin >> x >> y >> h >> p;
+    sort(a.begin(), a.end());
+    for (auto [h, x, y, p] : a) b.emplace_back(x, y);
     sort(b.begin(), b.end());
-    b.erase(unique(b.begin(), b.end()), b.end());
     auto root = build(0, b.size() - 1);
-    vector<int> ans(m);
-    for (int i = 0; i < n; i++) {
-        int j = ord[i];
-        int k = query(root, xl[j], xr[j], yl[j], yr[j]);
-        if (k != inf) {
-            ans[k] = j + 1;
-            del(root, c[k].first, c[k].second);
-        }
+    for (auto [h, x, y, p] : a) {
+        int xl = max(1, x - dx);
+        int yl = max(1, y - dy);
+        long long k = query(root, xl, min(N, x + dx), yl, min(N, y + dy));
+        if (k + p > 0) update(root, x, y, k + p);
     }
-    for (int i : ans) cout << i << '\n';
+    cout << query(root, 1, N, 1, N);
     return 0;
 }
