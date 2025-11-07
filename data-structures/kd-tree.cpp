@@ -3,12 +3,9 @@ using namespace std;
 const int inf = 1e9;
 // KD-Tree
 struct Node {
-    Node* l = nullptr;
-    Node* r = nullptr;
-    int xl = inf;
-    int xr = -inf;
-    int yl = inf;
-    int yr = -inf;
+    Node* l = nullptr; Node* r = nullptr;
+    int xl = inf; int xr = -inf;
+    int yl = inf; int yr = -inf;
     long long val = 0;
 };
 void combine(Node* t) {
@@ -20,10 +17,8 @@ Node* build(int l, int r, int d = 0) {
     Node* t = new Node();
     for (int i = l; i <= r; i++) {
         auto [x, y] = b[i];
-        t->xl = min(t->xl, x);
-        t->xr = max(t->xr, x);
-        t->yl = min(t->yl, y);
-        t->yr = max(t->yr, y);
+        t->xl = min(t->xl, x); t->xr = max(t->xr, x);
+        t->yl = min(t->yl, y); t->yr = max(t->yr, y);
     }
     if (l == r) {
         return t;
@@ -49,8 +44,7 @@ void update(Node* t, int x, int y, long long val) {
         t->val = max(t->val, val);
         return;
     }
-    update(t->l, x, y, val);
-    update(t->r, x, y, val);
+    update(t->l, x, y, val); update(t->r, x, y, val);
     combine(t);
 }
 const int N = 2e5;
