@@ -1,7 +1,4 @@
 #include "extended-euclid.h"
-#define int long long
-using namespace std;
-
 struct Congruence {
     int a, m;
 };
