@@ -1,7 +1,3 @@
-#include <bits/stdc++.h>
-//#define int long long
-using namespace std;
-
 // phai chinh neu thay doi mod
 // 1012924417 = 3*7*23 * 2^21 + 1
 // root = 673144645, inv_root = 915669194, root_pw = 1 << 21
@@ -12,19 +8,14 @@ int inv_2 = (mod+1) / 2;
 int root = 15311432;
 int inv_root = 469870224;
 int root_pw = 1 << 23;
-
 void fft(vector<int>& a, bool invert) {
     int n = a.size();
-    if(n == 1)
-        return;
+    if(n == 1) return;
     vector<int> a0(n / 2), a1(n / 2);
     for (int i = 0; i < n/2; i++) {
-        a0[i] = a[2*i];
-        a1[i] = a[2*i+1];
+        a0[i] = a[2*i]; a1[i] = a[2*i+1];
     }
-    fft(a0, invert);
-    fft(a1, invert);
-    
+    fft(a0, invert); fft(a1, invert);
     // Chon w sao cho w ^ n = 1, w ^ n-1 != 1
     int w = invert ? inv_root : root;
     for(int i = n; i < root_pw; i <<= 1)
@@ -42,32 +33,25 @@ void fft(vector<int>& a, bool invert) {
         }
     }
 }
-
 vector<int> multiply(const vector<int>& a, const vector<int>& b) {
     vector<int> fa(a.begin(), a.end());
     vector<int> fb(b.begin(), b.end());
     int n = 1;
     int sz = a.size() + b.size() - 1;
-    while(n < a.size() + b.size())
-        n <<= 1;
-    fa.resize(n);
-    fb.resize(n);
+    while(n < a.size() + b.size()) n <<= 1;
+    fa.resize(n); fb.resize(n);
 
-    fft(fa, false);
-    fft(fb, false);
-    for(int i = 0; i < n; i++)
-        fa[i] = 1LL * fa[i] * fb[i] % mod;
+    fft(fa, false); fft(fb, false);
+    for(int i = 0; i < n; i++) fa[i] = 1LL * fa[i] * fb[i] % mod;
     fft(fa, true);
     fa.resize(sz);
     return fa;
 }
 // 1 2 3 4 5 4 3 2 1
 void test_ntt() {
-    vector<int> a;
-    vector<int> b;
+    vector<int> a, b;
     for(int i = 0; i < 5; i++) {
-        a.push_back(1);
-        b.push_back(1);
+        a.push_back(1); b.push_back(1);
     }
     vector<int> c = multiply(a, b);
     for(int i = 0; i < c.size(); i++) {
