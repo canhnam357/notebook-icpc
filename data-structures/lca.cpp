@@ -29,8 +29,7 @@ struct LCA { // 0-based
   LCA(int n) : enter(n, -1), exxit(n, -1), depth(n), G(n), linear(2 * n) {}
   void dfs(int node, int dep) {
     linear[timer] = {dep, node};
-    enter[node] = timer++;
-    depth[node] = dep;
+    enter[node] = timer++; depth[node] = dep;
     for (auto vec : G[node])
     if (enter[vec] == -1) {
       dfs(vec, dep + 1);
@@ -39,8 +38,7 @@ struct LCA { // 0-based
     exxit[node] = timer;
   }
   void add_edge(int a, int b) {
-    G[a].push_back(b);
-    G[b].push_back(a);
+    G[a].push_back(b); G[b].push_back(a);
   }
   void build(int root) {
     dfs(root, 0);
