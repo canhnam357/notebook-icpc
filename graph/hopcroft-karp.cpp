@@ -1,3 +1,5 @@
+// minimum vertex cover = maximum matching
+// maximum independent set = number_of_vertex - maximum matching
 // 0 - indexed
 vector<pair<int, int>> maxMatch(int L, int R, const vector<pair<int, int>>& edges) {
 	vector<vector<int>> adj = vector<vector<int>>(L);
