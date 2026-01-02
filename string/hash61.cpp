@@ -36,7 +36,8 @@ struct hash61 {
  
   vector<uint64_t> pref;
   int n;
- 
+  hash61() {
+  }
   template<typename T>
   hash61(const T& s) {
     n = (int) s.size();
