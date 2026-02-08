@@ -1,16 +1,4 @@
-int power(long long a, int n, int mod) {
-    long long ans = 1;
-    while(n) {
-        if(n & 1) ans = ans * a % mod;
-        a = a * a % mod;
-        n >>= 1;
-    }
-    return ans;
-}
-int inverse(int a, int mod) {
-    return power(a, mod - 2, mod);
-}
-
+// MOD thay the
 // 1012924417 = 3*7*23 * 2^21 + 1
 // root = 673144645, inv_root = 915669194, root_pw = 1 << 21
 // 998244353  = 7*17 * 2^23 + 1
@@ -48,8 +36,8 @@ void fft(vector<int> & a, bool invert) {
         }
     }
     if (invert) {
-        int n_1 = inverse(n, mod);
-        for (int & x : a) x = 1LL * x * n_1 % mod;
+        int inv_n = inverse(n, mod);
+        for (int & x : a) x = 1LL * x * inv_n % mod;
     }
 }
 
