@@ -1,21 +1,16 @@
-#include "extended-euclid.h"
-struct Congruence {
-    int a, m;
-};
-int chinese_remainder(vector<Congruence> c) {
-    int M = 1;
-    for (Congruence x : c) {
-        M *= x.m;
-    }
-    int ans = 0;
-    for (Congruence x : c) {
-        int a_i = x.a;
-        int M_i = M / x.m;
-        // inverse(a, mod) : nghich dao modulo cua a
-        int N_i = inverse_extended_euclid(M_i, x.m);
-        ans = (ans + a_i * M_i % M * N_i) % M;
-    }
-    return ans;
+#include "extended_euclid.h"
+#define int long long
+int chinese(int a, int m, int b, int n) {
+    int32_t x, y;
+    euclid(m, n, x, y);
+    int ret = a * (y + m) % m * n + b * (x + n) % n * m;
+    if (ret >= m * n) ret -= m * n;
+    return ret;
 }
-//vector<Congruence> a = { {0, 1001}, {2, 1003} , {5, 1005} };
-//cout << chinese_remainder(a) << "\n";
+
+int chinese_common(int a, int m, int b, int n) {
+    int d = __gcd(m, n);
+    b = ((b - a) % n + n) % n;
+    if (b % d != 0) return -1;
+    return d * chinese(0, m/d, b/d, n/d) + a;
+}
