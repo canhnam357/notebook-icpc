@@ -2,8 +2,7 @@ using ll = long long;
 const ll inf = 1.1e18;
 // y = a * x + b
 struct Line {
-    ll a;
-    ll b;
+    ll a, b;
     ll calc(ll x) { return a * x + b; }
 };
 ll upper_divide(ll a, ll b) {
@@ -27,22 +26,15 @@ struct CHT_Deque {
 
             if(l.a == l_back.a) {
                 if(l.b <= l_back.b) return;
-                else lines.pop_back();
+                lines.pop_back();
             }
-
-            
             while(!lines.empty()) {
                 l_back = lines.back().second;
                 ll x = lines.back().first;
                 ll new_x = upper_divide(l_back.b - l.b, l.a - l_back.a);
-                if(new_x <= x) {
-                    lines.pop_back();
-                }
-                else {
-                    break;
-                }
+                if(new_x <= x) lines.pop_back();
+                else break;
             }
-
             if(lines.empty()) {
                 lines.emplace_back(-inf, l);
             }
