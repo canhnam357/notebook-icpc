@@ -1,6 +1,8 @@
 // suffix_link : nhay toi nut co do dai nho hon ma lon nhat va la suffix cua chuoi hien tai (vi la trie nen chuoi hien tai la 1 prefix cua mot chuoi da them vao)
 // exit_link : la nut gan nhat sau khi nhay (> 0) lan va nut do la ket thuc cua 1 trong nhung chuoi da them vao
 // trong ham get() tim nhung chuoi la suffix cua hien tai theo do dai giam dan
+// khi bien doi sang euler tour, link [exit_link, p] neu exit_link = -1 thi cho no = 0 (vi dinh 0 khong la cua dinh nao het)
+// co the nen dinh lai chi su dung nhung dinh co has = true, thay vi toan bo de tiet kiem bo nho
 const int M = 26;
 struct aho_corasick{
     struct node{
