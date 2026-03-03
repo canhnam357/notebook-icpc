@@ -1,5 +1,6 @@
 struct DSUrb {
-    vector<int> par, sz; stack<vector<int>> s;
+    vector<int> par, sz;
+    stack<vector<int>> s;
     int cc;
     void init(int n) {
         cc = n; par.resize(n);
