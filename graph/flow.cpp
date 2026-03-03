@@ -159,8 +159,9 @@ public:
         return ret;
     }
     /*
+          must call min_cut() when need find min_cut()
           expath go from fin
           define d[u] is distance from fin , if d[u] = n -> u can reach from fin
-          if an edge have u->v and d[u] != n && d[v] == n -> (u, v) is min_cut
+          if an edge have u->v and d[u] == n && d[v] != n -> (u, v) is min_cut
     */
 };
