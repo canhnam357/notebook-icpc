@@ -37,6 +37,7 @@ struct aho_corasick{
             }
         }
     }
+    // check if have any string inserted : g[p].has || g[p].exit_link != -1
     int get(int p) {
         int res = 0;
         for (int v = g[p].has ? p : g[p].exit_link; v != -1; v = g[v].exit_link) {
@@ -48,3 +49,10 @@ struct aho_corasick{
         return g[u].nxt[c];
     }
 };
+p[i] = ac.insert_string(s);
+for (int i = 0; i < n; i++) {
+    int par = ac.g[p[i]].exit_link;
+    if (par == -1) adj[0].push_back(p[i]);
+    else adj[par].push_back(p[i]);
+}
+// when get, pos = (ac.g[cur].has ? cur : ac.g[cur].exit_link);
