@@ -7,7 +7,6 @@ int chinese(int a, int m, int b, int n) {
     if (ret >= m * n) ret -= m * n;
     return ret;
 }
-
 int chinese_common(int a, int m, int b, int n) {
     int d = __gcd(m, n);
     b = ((b - a) % n + n) % n;
