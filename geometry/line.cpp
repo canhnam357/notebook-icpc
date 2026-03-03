@@ -1,10 +1,7 @@
 #include "point.h"
-
 // Duong thang co phuong trinh ax + by + c = 0
 struct Line {
-    num_t a;
-    num_t b;
-    num_t c;
+    num_t a, b, c;
     void norm() {
         if(a < 0 || a == 0 && b < 0 || a == 0 && b == 0 && c < 0) {
             a = -a;
@@ -19,7 +16,6 @@ struct Line {
         }
     }
 };
-
 // Tra ve duong thang AB
 Line to_line(Point a, Point b) {
     if(a == b) {
@@ -31,7 +27,6 @@ Line to_line(Point a, Point b) {
     res.c = - (res.a * a.x + res.b * a.y);
     return res;
 }
-
 // Tra ve khoang cach giua diem va duong thang
 double point_distance_to_line(Point p, Line l) {
     return abs(l.a * p.x + l.b * p.y + l.c) / sqrt(sqr(l.a) + sqr(l.b));
