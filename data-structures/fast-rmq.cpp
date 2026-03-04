@@ -54,3 +54,6 @@ struct RMQ {
         return dat[ans];
     }
 };
+bool f(int a, int b) {
+    return a < b;
+}
