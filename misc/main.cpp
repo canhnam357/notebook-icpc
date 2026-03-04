@@ -1,8 +1,12 @@
 // flags used (vscode only, add in task.json)
+// "-std=c++20"
 // "-DLOCAL"
 // "-fsanitize=address,undefined"
+// "-fno-sanitize-recover=all"
 // "-D_GLIBCXX_DEBUG"
-
+// "-Wall"
+// "-Werror"
+// --------------------------------------------
 // pragma define
 // #pragma GCC optimize("O3")
 // #pragma GCC target("avx2")
