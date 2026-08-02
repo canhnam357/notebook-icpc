@@ -6,7 +6,7 @@ struct fenwick {
 	vector<int> bit;
 	fenwick() {}
 	fenwick(int n) {
-		this->n = n + 5;
+		this->n = n + 1;
 		bit.resize(n + 5);
 	}
 	void add(int pos, int val) {
