@@ -1,20 +1,24 @@
-struct dsu {
-    vector<int> par;
+struct DSU {
+    vector<int> par, sz;
     int cc;
-    dsu() : cc(0) {}
-    dsu(int n) {
-        cc = n;
-        par.resize(n + 5);
+    DSU(int n) : cc(n) {
+        par.resize(n + 1);
         iota(par.begin(), par.end(), 0);
+        sz.resize(n + 1, 1);
     }
     int find(int u) {
         return u == par[u] ? u : par[u] = find(par[u]);
     }
-    void join(int a, int b) {
-        a = find(a), b = find(b);
-        if (a != b) par[a] = b, cc--;
+    bool join(int u, int v) {
+        u = find(u);
+        v = find(v);
+        if (u == v) return false;
+        par[u] = v;
+        sz[v] += sz[u];
+        cc--;
+        return true;
     }
-    bool same(int a, int b) {
-        return find(a) == find(b);
+    bool same(int u, int v) {
+        return find(u) == find(v);
     }
 };
